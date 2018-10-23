@@ -17,7 +17,7 @@ public class SavingsAccount extends BankAccount {
 
     public String toString(){
 
-        String bankAccount = "Balance: "+getBalance()+"\nName: "+getName()+"\nAccount Number: "+getAccNum()+" \u20ac";
+        String bankAccount = "Balance: "+getBalance()+" \u20ac"+"\nName: "+getName()+"\nAccount Number: "+getAccNum();
         return bankAccount;
     }
 

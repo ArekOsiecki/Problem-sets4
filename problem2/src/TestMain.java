@@ -7,10 +7,10 @@ public class TestMain {
 
 
         String amountAsString, accountNumAsString, name, accountNumChoiceAsString, accountsNumAsString, countAsString;
-        int accountNum, input,count, choice, accountNumChoice;
+        int accountNum, input, count, choice, accountNumChoice, choice2;
         double amount, balance = 0.0;
 
-        SavingsAccount [] accounts = null;
+        SavingsAccount[] accounts = null;
 
         SavingsAccount sa;
 
@@ -20,75 +20,55 @@ public class TestMain {
         count = Integer.parseInt(countAsString);
 
 
-            for(int i = 0; i<count; i++){
+        for (int i = 0; i < count; i++) {
 
-                accounts = new SavingsAccount[count];
-                accountNumAsString = JOptionPane.showInputDialog(null, "Please enter account number: ",
-                        "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
-                accountNum = Integer.parseInt(accountNumAsString);
-                name = JOptionPane.showInputDialog(null, "Please enter owner's name: ",
-                        "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
-                sa = new SavingsAccount(balance, name, accountNum);
-                accounts[i]=sa;
-            }
+            accounts = new SavingsAccount[count];
+            accountNumAsString = JOptionPane.showInputDialog(null, "Please enter account number: ",
+                    "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
+            accountNum = Integer.parseInt(accountNumAsString);
+            name = JOptionPane.showInputDialog(null, "Please enter owner's name: ",
+                    "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
+            sa = new SavingsAccount(balance, name, accountNum);
+            accounts[i] = sa;
+        }
 
-        Object options[] = {"Create an account", "Manage account", "Cancel"};
+        input = JOptionPane.showConfirmDialog(null,"Do you wish to manage accounts?, press cancel to exit","Banking Interface",JOptionPane.OK_CANCEL_OPTION);
 
-        choice = JOptionPane.showOptionDialog(null, "What action you wish to perform?",
-                "Banking Interface", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+        while(input!=JOptionPane.CANCEL_OPTION) {
+            accountNumChoiceAsString = JOptionPane.showInputDialog(null, "Which account you wish to manage?: ",
+                    "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
+            accountNumChoice = Integer.parseInt(accountNumChoiceAsString);
 
-        while(choice!= JOptionPane.CANCEL_OPTION) {
-            if (choice == JOptionPane.YES_OPTION) {
+            for (BankAccount bkAcc : accounts) {
 
-                accounts = new SavingsAccount[count + 1];
-                accountNumAsString = JOptionPane.showInputDialog(null, "Please enter account number: ",
-                        "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
-                accountNum = Integer.parseInt(accountNumAsString);
-                name = JOptionPane.showInputDialog(null, "Please enter owner's name: ",
-                        "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
+                if (accountNumChoice == bkAcc.getAccNum()) {
 
 
-            } else if (choice == JOptionPane.NO_OPTION) {
+                    Object options[] = {"Lodge", "Withdraw", "Calculate tax"};
+                    choice2 = JOptionPane.showOptionDialog(null, "What transaction you wish to perform?",
+                            "Banking Interface " + bkAcc.getAccNum(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
-                accountNumChoiceAsString = JOptionPane.showInputDialog(null, "Which account you wish to manage?: ",
-                        "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
-                accountNumChoice = Integer.parseInt(accountNumChoiceAsString);
+                    if (choice2 == JOptionPane.YES_OPTION) {
 
-
-                for (BankAccount bkAcc : accounts) {
-
-                    if (accountNumChoice == bkAcc.getAccNum()) {
-
-
-                        Object options2[] = {"Lodge", "Withdraw", "Calculate tax"};
-                        choice = JOptionPane.showOptionDialog(null, "What transaction you wish to perform?",
-                                "Banking Interface " + bkAcc.getAccNum(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options2, null);
-
-                        if (choice == JOptionPane.YES_OPTION) {
-
-                            amountAsString = JOptionPane.showInputDialog("Please enter the amount you wish to lodge: ");
-                            amount = Double.parseDouble(amountAsString);
-                            bkAcc.lodge(amount);
+                        amountAsString = JOptionPane.showInputDialog("Please enter the amount you wish to lodge: ");
+                        amount = Double.parseDouble(amountAsString);
+                        bkAcc.lodge(amount);
+                        JOptionPane.showMessageDialog(null, bkAcc.toString(), "Banking interface", JOptionPane.INFORMATION_MESSAGE);
 
 
-                        } else if (choice == JOptionPane.NO_OPTION) {
+                    } else if (choice2 == JOptionPane.NO_OPTION) {
 
-                            amountAsString = JOptionPane.showInputDialog("Please enter the amount you wish to withdraw: ");
-                            amount = Double.parseDouble(amountAsString);
-                            bkAcc.withdraw(amount);
-                        }
-                        if (choice == JOptionPane.CANCEL_OPTION) {
+                        amountAsString = JOptionPane.showInputDialog("Please enter the amount you wish to withdraw: ");
+                        amount = Double.parseDouble(amountAsString);
+                        bkAcc.withdraw(amount);
 
-                            JOptionPane.showMessageDialog(null, "Your tax amount is: " + bkAcc.calcTax() + "\u20ac",
-                                    "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
+                        JOptionPane.showMessageDialog(null, bkAcc.toString(), "Banking interface", JOptionPane.INFORMATION_MESSAGE);
 
-                            JOptionPane.showMessageDialog(null, "Thank you for using our service", "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
-                            System.exit(0);
-                        }
+                    } else if (choice2 == JOptionPane.CANCEL_OPTION) {
 
-                        choice = JOptionPane.showOptionDialog(null, "What action you wish to perform?",
-                                "Banking Interface", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+                        JOptionPane.showMessageDialog(null, "Your tax amount is: " + bkAcc.calcTax() + "\u20ac",
+                                "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
+
 
                     } else {
 
@@ -97,13 +77,18 @@ public class TestMain {
                                 "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
                         accountNumChoice = Integer.parseInt(accountNumChoiceAsString);
                     }
+
                 }
-
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Thank you for using our service", "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
-                System.exit(0);
             }
         }
-    }
-}
+        JOptionPane.showMessageDialog(null, "Thank you for using our service", "Banking Interface", JOptionPane.INFORMATION_MESSAGE);
+                    System.exit(0);
+                }
+            }
+
+
+
+
+
+
+
