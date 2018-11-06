@@ -7,15 +7,18 @@ public class MakeLaptop {
         int memSize;
         boolean touchScreen = true;
 
-        make = JOptionPane.showInputDialog("What is your laptop make? ");
+
         id = JOptionPane.showInputDialog("What is your laptop id? ");
-        memType = JOptionPane.showInputDialog("What is your laptop memory size? ");
+        make = JOptionPane.showInputDialog("What is your laptop make? ");
+        memType = JOptionPane.showInputDialog("What is your laptop memory type? ");
         memSizeAsString = JOptionPane.showInputDialog("What is your laptop memory size? ");
         memSize = Integer.parseInt(memSizeAsString);
 
-        Laptop laptop = new Laptop(make, id, memType, memSize, touchScreen);
+
+        Laptop laptop = new Laptop( id, make, memType, memSize, touchScreen);
 
 
+        JOptionPane.showMessageDialog(null,laptop.toString(),"Laptop spec",JOptionPane.INFORMATION_MESSAGE);
 
     }
 }

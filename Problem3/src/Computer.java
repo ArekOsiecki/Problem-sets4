@@ -12,7 +12,7 @@ public class Computer {
         return id;
     }
 
-    public Memory getMemory() {
+    public Memory getMemory(Memory memory) {
         return memory;
     }
 
@@ -30,22 +30,22 @@ public class Computer {
 
     public String toString(){
 
-        String computerString = "Computer Id: "+getId()+"\nComputer Make: "+getMake()+"Computer Memory"+getMemory();
+        String computerString = "Computer Id: "+getId()+"\nComputer Make: "+getMake()+"\nComputer Memory "+memory.toString();
         return computerString;
 
     }
 
-    public Computer(String make, String memType, int memSize){
-        this.id =getId();
-        this.make = getMake();
-        Memory memory = new Memory(memType, memSize);
+    public Computer(String id,String make, String memType, int memSize){
+        this.id =id;
+        this.make = make;
+        this.memory= new Memory(memType, memSize);
 
     }
 
     public Computer(){
         this.id = getId();
         this.make = getMake();
-        this.memory = getMemory();
+        this.memory = getMemory(memory);
 
     }
 }

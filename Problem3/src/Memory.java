@@ -27,7 +27,7 @@ public class Memory {
 
     public String toString(){
 
-        String memoryString = "Memory size: "+getSize()+"\nMemory type: "+getType();
+        String memoryString = " "+getSize()+"GB  "+getType();
         return memoryString;
     }
 }
